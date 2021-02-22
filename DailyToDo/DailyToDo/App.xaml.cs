@@ -1,7 +1,9 @@
-﻿using Prism;
-using Prism.Ioc;
+﻿using Prism.Ioc;
 using Prism.Unity;
 using Xamarin.Forms;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace DailyToDo
 {
@@ -27,6 +29,9 @@ namespace DailyToDo
 
         protected override void OnStart()
         {
+#if PRD
+            AppCenter.Start("android=c3a568d3-0800-4b3d-8a01-05e8cbb729fa;", typeof(Analytics), typeof(Crashes));
+#endif
         }
 
         protected override void OnSleep()
