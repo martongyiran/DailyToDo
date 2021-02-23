@@ -1,4 +1,4 @@
-﻿using DailyToDo.Values;
+﻿using DailyToDo.Assets.Texts;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;

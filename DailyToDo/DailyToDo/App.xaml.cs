@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using FFImageLoading;
 
 namespace DailyToDo
 {
@@ -17,6 +18,8 @@ namespace DailyToDo
         protected override async void OnInitialized()
         {
             InitializeComponent();
+
+            ImageService.Instance.Initialize();
 
             await NavigationService.NavigateAsync("NavigationPage/MainPage");
         }

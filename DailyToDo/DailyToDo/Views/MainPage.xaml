@@ -3,8 +3,11 @@
    x:Class="DailyToDo.MainPage"
    xmlns="http://xamarin.com/schemas/2014/forms"
    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-   xmlns:values="clr-namespace:DailyToDo.Values"
+   xmlns:controls="clr-namespace:DailyToDo.Views.Controls"
+   xmlns:markup="clr-namespace:DailyToDo.Views.MarkupExtensions"
+   xmlns:values="clr-namespace:DailyToDo.Assets.Texts"
    xmlns:viewModels="clr-namespace:DailyToDo"
+   xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
    BackgroundColor="{StaticResource BackgroundColor}">
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
@@ -19,12 +22,12 @@
            Orientation="Horizontal"
            Spacing="0"
            VerticalOptions="FillAndExpand">
-            <Image
+            <controls:SvgImage
                Margin="10,0,0,0"
                BackgroundColor="Transparent"
                HeightRequest="30"
                HorizontalOptions="Start"
-               Source="@drawable/header.png"
+               Source="{markup:Icon header}"
                VerticalOptions="CenterAndExpand"
                WidthRequest="30" />
 
@@ -36,30 +39,31 @@
                TextColor="{StaticResource WhiteColor}"
                VerticalOptions="Center" />
 
-            <ImageButton
+            <controls:SvgImage
                Margin="0,0,10,0"
-               Padding="0"
+               xct:TouchEffect.Command="{Binding EditCommand}"
+               xct:TouchEffect.NormalScale="1.0"
+               xct:TouchEffect.PressedScale="0.9"
                BackgroundColor="Transparent"
-               Command="{Binding EditCommand}"
                HeightRequest="30"
                HorizontalOptions="EndAndExpand"
+               IsVisible="{Binding IsEditMode}"
+               Source="{markup:Icon done}"
                VerticalOptions="CenterAndExpand"
-               WidthRequest="30">
-                <ImageButton.Triggers>
-                    <DataTrigger
-                       Binding="{Binding IsEditMode}"
-                       TargetType="ImageButton"
-                       Value="false">
-                        <Setter Property="Source" Value="@drawable/edit.png" />
-                    </DataTrigger>
-                    <DataTrigger
-                       Binding="{Binding IsEditMode}"
-                       TargetType="ImageButton"
-                       Value="true">
-                        <Setter Property="Source" Value="@drawable/done.png" />
-                    </DataTrigger>
-                </ImageButton.Triggers>
-            </ImageButton>
+               WidthRequest="30" />
+
+            <controls:SvgImage
+               Margin="0,0,10,0"
+               xct:TouchEffect.Command="{Binding EditCommand}"
+               xct:TouchEffect.NormalScale="1.0"
+               xct:TouchEffect.PressedScale="0.9"
+               BackgroundColor="Transparent"
+               HeightRequest="30"
+               HorizontalOptions="EndAndExpand"
+               IsVisible="{Binding IsEditMode, Converter={StaticResource InverseBoolConverter}}"
+               Source="{markup:Icon edit}"
+               VerticalOptions="CenterAndExpand"
+               WidthRequest="30" />
         </StackLayout>
 
         <CollectionView
@@ -85,31 +89,33 @@
                                HorizontalOptions="StartAndExpand"
                                Orientation="Horizontal"
                                VerticalOptions="CenterAndExpand">
-                                <ImageButton
+                                <controls:SvgImage
                                    Margin="0"
-                                   Padding="0"
+                                   xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=CheckCommand}"
+                                   xct:TouchEffect.CommandParameter="{Binding}"
+                                   xct:TouchEffect.NormalScale="1.0"
+                                   xct:TouchEffect.PressedScale="0.9"
                                    BackgroundColor="Transparent"
-                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=CheckCommand}"
-                                   CommandParameter="{Binding}"
                                    HeightRequest="25"
                                    HorizontalOptions="Start"
+                                   IsVisible="{Binding IsChecked}"
+                                   Source="{markup:Icon checked}"
                                    VerticalOptions="Center"
-                                   WidthRequest="25">
-                                    <ImageButton.Triggers>
-                                        <DataTrigger
-                                           Binding="{Binding IsChecked}"
-                                           TargetType="ImageButton"
-                                           Value="true">
-                                            <Setter Property="Source" Value="@drawable/checked.png" />
-                                        </DataTrigger>
-                                        <DataTrigger
-                                           Binding="{Binding IsChecked}"
-                                           TargetType="ImageButton"
-                                           Value="false">
-                                            <Setter Property="Source" Value="@drawable/check.png" />
-                                        </DataTrigger>
-                                    </ImageButton.Triggers>
-                                </ImageButton>
+                                   WidthRequest="25" />
+
+                                <controls:SvgImage
+                                   Margin="0"
+                                   xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=CheckCommand}"
+                                   xct:TouchEffect.CommandParameter="{Binding}"
+                                   xct:TouchEffect.NormalScale="1.0"
+                                   xct:TouchEffect.PressedScale="0.9"
+                                   BackgroundColor="Transparent"
+                                   HeightRequest="25"
+                                   HorizontalOptions="Start"
+                                   IsVisible="{Binding IsChecked, Converter={StaticResource InverseBoolConverter}}"
+                                   Source="{markup:Icon check}"
+                                   VerticalOptions="Center"
+                                   WidthRequest="25" />
 
                                 <Label
                                    HorizontalOptions="StartAndExpand"
@@ -129,16 +135,17 @@
                                        WidthRequest="280" />
                                 </Frame>
 
-                                <ImageButton
+                                <controls:SvgImage
                                    Margin="10,0,10,0"
-                                   Padding="0"
+                                   xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=DeleteItemCommand}"
+                                   xct:TouchEffect.CommandParameter="{Binding}"
+                                   xct:TouchEffect.NormalScale="1.0"
+                                   xct:TouchEffect.PressedScale="0.9"
                                    BackgroundColor="Transparent"
-                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=DeleteItemCommand}"
-                                   CommandParameter="{Binding}"
                                    HeightRequest="25"
                                    HorizontalOptions="End"
                                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=IsEditMode}"
-                                   Source="@drawable/delete.png"
+                                   Source="{markup:Icon delete}"
                                    VerticalOptions="CenterAndExpand"
                                    WidthRequest="25" />
                             </StackLayout>
@@ -148,14 +155,16 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <ImageButton
+        <controls:SvgImage
            Grid.Row="1"
            Margin="0,0,10,10"
+           xct:TouchEffect.Command="{Binding ShowItemCreatorCommand}"
+           xct:TouchEffect.NormalScale="1.0"
+           xct:TouchEffect.PressedScale="0.9"
            BackgroundColor="Transparent"
-           Command="{Binding ShowItemCreatorCommand}"
            HeightRequest="60"
            HorizontalOptions="End"
-           Source="@drawable/add.png"
+           Source="{markup:Icon add}"
            VerticalOptions="End"
            WidthRequest="60" />
 

@@ -15,18 +15,34 @@
     <DefineConstants>TRACE;PRD</DefineConstants>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Icons\add.svg" />
+    <EmbeddedResource Include="Assets\Icons\check.svg" />
+    <EmbeddedResource Include="Assets\Icons\checked.svg" />
+    <EmbeddedResource Include="Assets\Icons\delete.svg" />
+    <EmbeddedResource Include="Assets\Icons\done.svg" />
+    <EmbeddedResource Include="Assets\Icons\edit.svg" />
+    <EmbeddedResource Include="Assets\Icons\header.svg" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.1.0" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Prism.Unity.Forms" Version="8.0.0.1909" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.0.2" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Values\Texts.Designer.cs">
+    <Compile Update="Assets\Texts\Texts.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Texts.resx</DependentUpon>
@@ -34,7 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Values\Texts.resx">
+    <EmbeddedResource Update="Assets\Texts\Texts.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Texts.Designer.cs</LastGenOutput>
     </EmbeddedResource>
