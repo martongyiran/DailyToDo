@@ -6,6 +6,9 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using FFImageLoading;
 
+[assembly: ExportFont("Roboto-Medium.ttf", Alias = "MediumFont")]
+[assembly: ExportFont("Roboto-Regular.ttf", Alias = "RegularFont")]
+[assembly: ExportFont("Roboto-Light.ttf", Alias = "LightFont")]
 namespace DailyToDo
 {
     public partial class App : PrismApplication

@@ -17,11 +17,13 @@
             <Style TargetType="Label">
                 <Setter Property="TextColor" Value="{StaticResource PrimaryDarkColor}" />
                 <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily" Value="RegularFont" />
             </Style>
 
             <Style TargetType="Entry">
                 <Setter Property="TextColor" Value="{StaticResource PrimaryDarkColor}" />
                 <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily" Value="RegularFont" />
             </Style>
 
             <Style TargetType="Button">
@@ -32,6 +34,7 @@
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="FontSize" Value="14" />
                 <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="FontFamily" Value="MediumFont" />
             </Style>
 
         </ResourceDictionary>
