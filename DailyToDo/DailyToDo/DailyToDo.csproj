@@ -18,9 +18,10 @@
   <PropertyGroup>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <EmbeddedResource Include="Assets\Icons\add.svg" />
+    <EmbeddedResource Include="Assets\Icons\add_outline.svg" />
     <EmbeddedResource Include="Assets\Icons\check.svg" />
     <EmbeddedResource Include="Assets\Icons\checked.svg" />
     <EmbeddedResource Include="Assets\Icons\delete.svg" />
@@ -63,5 +64,9 @@
     <EmbeddedResource Update="Views\ToDoItemView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Converters\" />
   </ItemGroup>
 </Project>

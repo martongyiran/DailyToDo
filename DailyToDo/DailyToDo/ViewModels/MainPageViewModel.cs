@@ -5,6 +5,7 @@ using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace DailyToDo
@@ -56,6 +57,8 @@ namespace DailyToDo
             }
         }
 
+        public bool CenterAddIsVisible => Items == null || Items.Count == 0;
+
         public DelegateCommand ShowItemCreatorCommand
             => new DelegateCommand(ShowItemCreator);
 
@@ -82,7 +85,7 @@ namespace DailyToDo
         {
             base.OnNavigatedTo(parameters);
 
-            Initialize();
+            Task.Run(() => Initialize());
         }
 
         private void Initialize()
@@ -94,7 +97,9 @@ namespace DailyToDo
             else
             {
                 Items = new ObservableCollection<ToDoItemViewModel>();
-            }            
+            }
+
+            RaisePropertyChanged(nameof(CenterAddIsVisible));
         }
 
         private void ShowItemCreator()
@@ -143,6 +148,8 @@ namespace DailyToDo
             }
 
             Items.Remove(item as ToDoItemViewModel);
+
+            RaisePropertyChanged(nameof(CenterAddIsVisible));
         }
 
         private void Edit()

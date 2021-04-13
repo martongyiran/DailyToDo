@@ -61,6 +61,15 @@ namespace DailyToDo.Assets.Texts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add something!.
+        /// </summary>
+        public static string AddSomething {
+            get {
+                return ResourceManager.GetString("AddSomething", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DailyToDo.
         /// </summary>
         public static string AppTitle {
@@ -88,8 +97,7 @@ namespace DailyToDo.Assets.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are no items.
-        ///Add something!.
+        ///   Looks up a localized string similar to There are no notes.
         /// </summary>
         public static string NoItems {
             get {
