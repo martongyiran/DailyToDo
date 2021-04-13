@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+   x:Class="DailyToDo.Views.ToDoItemView"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:controls="clr-namespace:DailyToDo.Views.Controls"
+   xmlns:markup="clr-namespace:DailyToDo.Views.MarkupExtensions"
+   xmlns:viewModels="clr-namespace:DailyToDo"
+   xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+   Padding="10,0,10,10"
+   x:DataType="viewModels:ToDoItemViewModel">
+    <Frame HeightRequest="40">
+        <StackLayout
+           HorizontalOptions="StartAndExpand"
+           Orientation="Horizontal"
+           VerticalOptions="CenterAndExpand">
+            <controls:SvgImage
+               Margin="0"
+               xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=CheckCommand}"
+               xct:TouchEffect.CommandParameter="{Binding}"
+               xct:TouchEffect.NormalScale="1.0"
+               xct:TouchEffect.PressedScale="0.9"
+               BackgroundColor="Transparent"
+               HeightRequest="25"
+               HorizontalOptions="Start"
+               IsVisible="{Binding IsChecked}"
+               Source="{markup:Icon checked}"
+               VerticalOptions="Center"
+               WidthRequest="25" />
+
+            <controls:SvgImage
+               Margin="0"
+               xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=CheckCommand}"
+               xct:TouchEffect.CommandParameter="{Binding}"
+               xct:TouchEffect.NormalScale="1.0"
+               xct:TouchEffect.PressedScale="0.9"
+               BackgroundColor="Transparent"
+               HeightRequest="25"
+               HorizontalOptions="Start"
+               IsVisible="{Binding IsChecked, Converter={xct:InvertedBoolConverter}}"
+               Source="{markup:Icon check}"
+               VerticalOptions="Center"
+               WidthRequest="25" />
+
+            <Label
+               HorizontalOptions="StartAndExpand"
+               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=IsEditMode, Converter={xct:InvertedBoolConverter}}"
+               Text="{Binding Title}"
+               VerticalOptions="CenterAndExpand" />
+
+            <Frame
+               Padding="5,0,0,0"
+               BackgroundColor="{StaticResource BackgroundColor}"
+               CornerRadius="4"
+               HasShadow="False"
+               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=IsEditMode}">
+                <Entry
+                   HorizontalOptions="StartAndExpand"
+                   Text="{Binding Title, Mode=TwoWay}"
+                   WidthRequest="280" />
+            </Frame>
+
+            <controls:SvgImage
+               Margin="10,0,10,0"
+               xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=DeleteItemCommand}"
+               xct:TouchEffect.CommandParameter="{Binding}"
+               xct:TouchEffect.NormalScale="1.0"
+               xct:TouchEffect.PressedScale="0.9"
+               BackgroundColor="Transparent"
+               HeightRequest="25"
+               HorizontalOptions="End"
+               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=IsEditMode}"
+               Source="{markup:Icon delete}"
+               VerticalOptions="CenterAndExpand"
+               WidthRequest="25" />
+        </StackLayout>
+    </Frame>
+</ContentView>

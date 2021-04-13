@@ -3,7 +3,6 @@
    x:Class="DailyToDo.App"
    xmlns="http://xamarin.com/schemas/2014/forms"
    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-   xmlns:converters="clr-namespace:DailyToDo.Views.Converters"
    xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms">
     <Application.Resources>
         <ResourceDictionary>
@@ -14,8 +13,6 @@
             <Color x:Key="WhiteColor">#ffffff</Color>
             <Color x:Key="BackgroundColor">#efefef</Color>
             <Color x:Key="BackgroundColorTransparent">#ccefefef</Color>
-
-            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
 
             <Style TargetType="Label">
                 <Setter Property="TextColor" Value="{StaticResource PrimaryDarkColor}" />

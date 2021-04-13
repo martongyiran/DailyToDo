@@ -4,6 +4,7 @@
    xmlns="http://xamarin.com/schemas/2014/forms"
    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
    xmlns:values="clr-namespace:DailyToDo.Assets.Texts"
+   xmlns:viewModels="clr-namespace:DailyToDo"
    Padding="20,0,20,0"
    BackgroundColor="{StaticResource BackgroundColorTransparent}"
    HorizontalOptions="FillAndExpand"
