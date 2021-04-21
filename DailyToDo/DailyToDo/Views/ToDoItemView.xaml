@@ -10,13 +10,27 @@
    Padding="10,0,10,10"
    x:DataType="viewModels:ToDoItemViewModel">
     <Frame HeightRequest="40">
+        <Frame.Triggers>
+            <DataTrigger
+               Binding="{Binding IsEditMode}"
+               TargetType="Frame"
+               Value="True">
+                <Setter Property="BorderColor" Value="#000000" />
+            </DataTrigger>
+            <DataTrigger
+               Binding="{Binding IsEditMode}"
+               TargetType="Frame"
+               Value="False">
+                <Setter Property="BorderColor" Value="#ffffff" />
+            </DataTrigger>
+        </Frame.Triggers>
         <StackLayout
-           HorizontalOptions="StartAndExpand"
+           HorizontalOptions="FillAndExpand"
            Orientation="Horizontal"
-           VerticalOptions="CenterAndExpand">
+           VerticalOptions="FillAndExpand">
             <controls:SvgImage
                Margin="0"
-               xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=CheckCommand}"
+               xct:TouchEffect.Command="{Binding CheckCommand}"
                xct:TouchEffect.CommandParameter="{Binding}"
                xct:TouchEffect.NormalScale="1.0"
                xct:TouchEffect.PressedScale="0.95"
@@ -30,7 +44,7 @@
 
             <controls:SvgImage
                Margin="0"
-               xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=CheckCommand}"
+               xct:TouchEffect.Command="{Binding CheckCommand}"
                xct:TouchEffect.CommandParameter="{Binding}"
                xct:TouchEffect.NormalScale="1.0"
                xct:TouchEffect.PressedScale="0.95"
@@ -42,37 +56,32 @@
                VerticalOptions="Center"
                WidthRequest="25" />
 
-            <Label
-               HorizontalOptions="StartAndExpand"
-               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=IsEditMode, Converter={xct:InvertedBoolConverter}}"
-               Text="{Binding Title}"
-               VerticalOptions="CenterAndExpand" />
+            <ContentView
+               xct:TouchEffect.CommandParameter="{Binding}"
+               xct:TouchEffect.LongPressCommand="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=EditCommand}"
+               HorizontalOptions="FillAndExpand"
+               IsVisible="{Binding IsEditMode, Converter={xct:InvertedBoolConverter}}"
+               VerticalOptions="Fill">
+                <Label
+                   HorizontalOptions="FillAndExpand"
+                   Text="{Binding Title}"
+                   VerticalOptions="CenterAndExpand" />
+            </ContentView>
 
             <Frame
                Padding="5,0,0,0"
                BackgroundColor="{StaticResource BackgroundColor}"
                CornerRadius="4"
                HasShadow="False"
-               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=IsEditMode}">
+               HorizontalOptions="FillAndExpand"
+               IsVisible="{Binding IsEditMode}">
                 <Entry
-                   HorizontalOptions="StartAndExpand"
+                   HorizontalOptions="FillAndExpand"
                    Text="{Binding Title, Mode=TwoWay}"
+                   VerticalOptions="CenterAndExpand"
                    WidthRequest="280" />
             </Frame>
 
-            <controls:SvgImage
-               Margin="10,0,10,0"
-               xct:TouchEffect.Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=DeleteItemCommand}"
-               xct:TouchEffect.CommandParameter="{Binding}"
-               xct:TouchEffect.NormalScale="1.0"
-               xct:TouchEffect.PressedScale="0.95"
-               BackgroundColor="Transparent"
-               HeightRequest="25"
-               HorizontalOptions="End"
-               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=IsEditMode}"
-               Source="{markup:Icon delete}"
-               VerticalOptions="CenterAndExpand"
-               WidthRequest="25" />
         </StackLayout>
     </Frame>
 </ContentView>

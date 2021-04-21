@@ -5,6 +5,8 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using FFImageLoading;
+using DailyToDo.Views;
+using DailyToDo.ViewModels;
 
 [assembly: ExportFont("Roboto-Medium.ttf", Alias = "MediumFont")]
 [assembly: ExportFont("Roboto-Regular.ttf", Alias = "RegularFont")]
@@ -31,6 +33,7 @@ namespace DailyToDo
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
         }
 
         protected override void OnStart()

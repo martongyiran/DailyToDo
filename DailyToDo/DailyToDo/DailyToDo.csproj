@@ -22,12 +22,11 @@
   <ItemGroup>
     <EmbeddedResource Include="Assets\Icons\add.svg" />
     <EmbeddedResource Include="Assets\Icons\add_outline.svg" />
+    <EmbeddedResource Include="Assets\Icons\back.svg" />
     <EmbeddedResource Include="Assets\Icons\check.svg" />
     <EmbeddedResource Include="Assets\Icons\checked.svg" />
-    <EmbeddedResource Include="Assets\Icons\delete.svg" />
-    <EmbeddedResource Include="Assets\Icons\done.svg" />
-    <EmbeddedResource Include="Assets\Icons\edit.svg" />
     <EmbeddedResource Include="Assets\Icons\header.svg" />
+    <EmbeddedResource Include="Assets\Icons\settings.svg" />
     <EmbeddedResource Include="Views\Resources\Fonts\Roboto-Light.ttf" />
     <EmbeddedResource Include="Views\Resources\Fonts\Roboto-Medium.ttf" />
     <EmbeddedResource Include="Views\Resources\Fonts\Roboto-Regular.ttf" />
@@ -58,7 +57,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Texts.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\AddNewItemView.xaml">
+    <EmbeddedResource Update="Views\SettingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ToDoItemView.xaml">

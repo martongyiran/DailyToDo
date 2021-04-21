@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 
@@ -8,6 +9,7 @@ namespace DailyToDo
     {
         private string _title;
         private DateTime _checkedAt;
+        private bool _isEditMode;
 
         public string Title
         {
@@ -30,5 +32,15 @@ namespace DailyToDo
             => CheckedAt.Year == DateTime.Now.Year
             && CheckedAt.Month == DateTime.Now.Month
             && CheckedAt.Day == DateTime.Now.Day;
+
+        [JsonIgnore]
+        public DelegateCommand<object> CheckCommand { get; set; }
+
+        [JsonIgnore]
+        public bool IsEditMode
+        {
+            get => _isEditMode;
+            set => SetProperty(ref _isEditMode, value);
+        }
     }
 }

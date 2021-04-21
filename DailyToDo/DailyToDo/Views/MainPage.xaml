@@ -11,7 +11,7 @@
    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
    x:DataType="viewModels:MainPageViewModel"
    BackgroundColor="{StaticResource BackgroundColor}">
-    <Grid RowSpacing="0">
+    <Grid IsVisible="{Binding IsBusy, Converter={xct:InvertedBoolConverter}}" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
@@ -44,28 +44,13 @@
 
             <controls:SvgImage
                Margin="0,0,10,0"
-               xct:TouchEffect.Command="{Binding EditCommand}"
+               xct:TouchEffect.Command="{Binding NavigateToSettingsCommand}"
                xct:TouchEffect.NormalScale="1.0"
-               xct:TouchEffect.PressedScale="0.95"
+               xct:TouchEffect.PressedScale="0.9"
                BackgroundColor="Transparent"
                HeightRequest="30"
-               HorizontalOptions="EndAndExpand"
-               IsVisible="{Binding IsEditMode}"
-               Source="{markup:Icon done}"
-               TintColor="{StaticResource WhiteColor}"
-               VerticalOptions="CenterAndExpand"
-               WidthRequest="30" />
-
-            <controls:SvgImage
-               Margin="0,0,10,0"
-               xct:TouchEffect.Command="{Binding EditCommand}"
-               xct:TouchEffect.NormalScale="1.0"
-               xct:TouchEffect.PressedScale="0.95"
-               BackgroundColor="Transparent"
-               HeightRequest="30"
-               HorizontalOptions="EndAndExpand"
-               IsVisible="{Binding IsEditMode, Converter={xct:InvertedBoolConverter}}"
-               Source="{markup:Icon edit}"
+               HorizontalOptions="End"
+               Source="{markup:Icon settings}"
                TintColor="{StaticResource WhiteColor}"
                VerticalOptions="CenterAndExpand"
                WidthRequest="30" />
@@ -84,17 +69,22 @@
                     <views:ToDoItemView />
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+            <CollectionView.Footer>
+                <ContentView HeightRequest="120" />
+            </CollectionView.Footer>
         </CollectionView>
 
         <StackLayout
            x:Name="center_add"
            Grid.Row="1"
-           xct:TouchEffect.Command="{Binding ShowItemCreatorCommand}"
            xct:TouchEffect.NormalScale="1.0"
            xct:TouchEffect.PressedScale="0.95"
            HorizontalOptions="CenterAndExpand"
            IsVisible="{Binding CenterAddIsVisible}"
            VerticalOptions="CenterAndExpand">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+            </StackLayout.GestureRecognizers>
             <controls:SvgImage
                BackgroundColor="Transparent"
                HeightRequest="120"
@@ -123,21 +113,146 @@
         <controls:SvgImage
            Grid.Row="1"
            Margin="0,0,10,10"
-           xct:TouchEffect.Command="{Binding ShowItemCreatorCommand}"
            xct:TouchEffect.NormalScale="1.0"
            xct:TouchEffect.PressedScale="0.9"
            BackgroundColor="Transparent"
            HeightRequest="60"
            HorizontalOptions="End"
-           IsVisible="{Binding IsVisible, Source={x:Reference center_add}}"
+           IsVisible="{Binding IsVisible, Source={x:Reference center_add}, Converter={xct:InvertedBoolConverter}}"
            Source="{markup:Icon add}"
            VerticalOptions="End"
-           WidthRequest="60" />
+           WidthRequest="60">
+            <controls:SvgImage.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+            </controls:SvgImage.GestureRecognizers>
+        </controls:SvgImage>
 
-        <viewModels:AddNewItemView
+        <Frame
+           x:Name="EditFrame"
            Grid.Row="0"
            Grid.RowSpan="2"
-           IsVisible="{Binding AddNewItemIsVisible}" />
+           Margin="4,0"
+           Padding="0"
+           CornerRadius="16"
+           HasShadow="True"
+           HeightRequest="120"
+           IsVisible="False"
+           VerticalOptions="End">
+            <Frame.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
+            </Frame.GestureRecognizers>
+            <Grid
+               Padding="0,12,0,0"
+               ColumnDefinitions="*,*"
+               HorizontalOptions="FillAndExpand"
+               RowDefinitions="Auto,Auto"
+               RowSpacing="16"
+               VerticalOptions="Start">
+                <BoxView
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   BackgroundColor="Gray"
+                   HeightRequest="2"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Start"
+                   WidthRequest="40" />
+
+                <Button
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Padding="0"
+                   BackgroundColor="{StaticResource WhiteColor}"
+                   BorderColor="{StaticResource AccentColor}"
+                   Command="{Binding CloseEditCommand}"
+                   HorizontalOptions="CenterAndExpand"
+                   Text="Save"
+                   VerticalOptions="CenterAndExpand"
+                   WidthRequest="100" />
+
+                <Button
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   Padding="0"
+                   BackgroundColor="{StaticResource WhiteColor}"
+                   BorderColor="Red"
+                   Command="{Binding DeleteItemCommand}"
+                   HorizontalOptions="CenterAndExpand"
+                   Text="Delete"
+                   TextColor="Red"
+                   VerticalOptions="CenterAndExpand"
+                   WidthRequest="100" />
+            </Grid>
+        </Frame>
+
+        <ContentView
+           x:Name="NewItemView"
+           Grid.Row="0"
+           Grid.RowSpan="2"
+           Padding="20,0,20,0"
+           BackgroundColor="{StaticResource BackgroundColorTransparent}"
+           HorizontalOptions="FillAndExpand"
+           IsVisible="False"
+           VerticalOptions="FillAndExpand">
+            <ContentView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+            </ContentView.GestureRecognizers>
+            <Frame
+               HasShadow="True"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="CenterAndExpand">
+                <Grid RowSpacing="30">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Frame
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Margin="0"
+                       Padding="0"
+                       BackgroundColor="{StaticResource BackgroundColor}"
+                       CornerRadius="4"
+                       HasShadow="False">
+                        <Entry
+                           x:Name="NewItemEntry"
+                           HorizontalOptions="FillAndExpand"
+                           HorizontalTextAlignment="Center"
+                           Placeholder="{x:Static values:Texts.NewItem}"
+                           PlaceholderColor="{StaticResource AccentColor}"
+                           Text="{Binding NewTitle, Mode=TwoWay}"
+                           VerticalOptions="CenterAndExpand" />
+                    </Frame>
+
+                    <Button
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       BackgroundColor="{StaticResource WhiteColor}"
+                       BorderColor="{StaticResource AccentColor}"
+                       Command="{Binding SaveNewItemCommand}"
+                       HorizontalOptions="CenterAndExpand"
+                       Text="{x:Static values:Texts.Save}"
+                       VerticalOptions="CenterAndExpand"
+                       WidthRequest="100" />
+
+                    <Button
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       BackgroundColor="{StaticResource WhiteColor}"
+                       Clicked="TapGestureRecognizer_Tapped"
+                       HorizontalOptions="CenterAndExpand"
+                       Text="{x:Static values:Texts.Cancel}"
+                       VerticalOptions="CenterAndExpand"
+                       WidthRequest="100" />
+                </Grid>
+            </Frame>
+        </ContentView>
 
     </Grid>
 </ContentPage>

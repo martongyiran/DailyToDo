@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+   x:Class="DailyToDo.Views.SettingsPage"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:controls="clr-namespace:DailyToDo.Views.Controls"
+   xmlns:markup="clr-namespace:DailyToDo.Views.MarkupExtensions"
+   xmlns:values="clr-namespace:DailyToDo.Assets.Texts"
+   xmlns:viewModels="clr-namespace:DailyToDo.ViewModels"
+   xmlns:views="clr-namespace:DailyToDo.Views"
+   xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+   x:DataType="viewModels:SettingsPageViewModel"
+   BackgroundColor="{StaticResource BackgroundColor}">
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackLayout
+           Grid.Row="0"
+           BackgroundColor="{StaticResource BlackColor}"
+           HorizontalOptions="FillAndExpand"
+           Orientation="Horizontal"
+           Spacing="0"
+           VerticalOptions="FillAndExpand">
+            <controls:SvgImage
+               Margin="10,0,0,0"
+               xct:TouchEffect.Command="{Binding BackCommand}"
+               xct:TouchEffect.NormalScale="1.0"
+               xct:TouchEffect.PressedScale="0.9"
+               BackgroundColor="Transparent"
+               HeightRequest="30"
+               HorizontalOptions="Start"
+               Source="{markup:Icon back}"
+               TintColor="{StaticResource WhiteColor}"
+               VerticalOptions="CenterAndExpand"
+               WidthRequest="30" />
+
+            <Label
+               Margin="10,0,0,0"
+               FontSize="16"
+               HorizontalOptions="StartAndExpand"
+               Text="Settings"
+               TextColor="{StaticResource WhiteColor}"
+               VerticalOptions="Center" />
+        </StackLayout>
+
+        <StackLayout
+           Grid.Row="1"
+           Padding="10"
+           Spacing="16"
+           VerticalOptions="Start">
+            <Frame HeightRequest="40">
+                <StackLayout
+                   HorizontalOptions="FillAndExpand"
+                   Orientation="Horizontal"
+                   VerticalOptions="Center">
+                    <Label
+                       HorizontalOptions="StartAndExpand"
+                       Text="DarkMode"
+                       VerticalOptions="Center" />
+                    <Switch
+                       HorizontalOptions="End"
+                       IsToggled="False"
+                       VerticalOptions="Center" />
+                </StackLayout>
+            </Frame>
+
+            <Frame HeightRequest="40">
+                <StackLayout Orientation="Horizontal">
+                    <Label
+                       HorizontalOptions="StartAndExpand"
+                       Text="Language"
+                       VerticalOptions="Center" />
+                    <Label
+                       HorizontalOptions="End"
+                       Text="Hungarian"
+                       VerticalOptions="Center" />
+                </StackLayout>
+            </Frame>
+
+
+        </StackLayout>
+
+        <Label
+           Grid.Row="1"
+           Margin="0,0,10,10"
+           HorizontalOptions="End"
+           Text="Version: 1.0.0"
+           VerticalOptions="End" />
+    </Grid>
+</ContentPage>
