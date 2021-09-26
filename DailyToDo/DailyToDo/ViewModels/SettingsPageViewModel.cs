@@ -1,4 +1,5 @@
-﻿using Prism.Navigation;
+﻿using DailyToDo.Services.Interfaces;
+using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,15 @@ namespace DailyToDo.ViewModels
 {
     public class SettingsPageViewModel : ViewModelBase
     {
+        private AsyncCommand _backCommand;
         public AsyncCommand BackCommand
-            => new AsyncCommand(BackAsync, allowsMultipleExecutions: false);
+            => _backCommand ??= new AsyncCommand(BackAsync, allowsMultipleExecutions: false);
 
-        public SettingsPageViewModel(INavigationService navigationService,
-            IPageDialogService dialogService)
-            : base(navigationService, dialogService)
+        public SettingsPageViewModel(
+            INavigationService navigationService,
+            IPageDialogService dialogService,
+            ICommonConfigService commonConfigService)
+            : base(navigationService, dialogService, commonConfigService)
         {
         }
 

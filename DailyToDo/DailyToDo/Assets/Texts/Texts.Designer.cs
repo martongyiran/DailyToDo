@@ -61,20 +61,11 @@ namespace DailyToDo.Assets.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add something!.
+        ///   Looks up a localized string similar to Accept.
         /// </summary>
-        public static string AddSomething {
+        public static string Accept {
             get {
-                return ResourceManager.GetString("AddSomething", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DailyToDo.
-        /// </summary>
-        public static string AppTitle {
-            get {
-                return ResourceManager.GetString("AppTitle", resourceCulture);
+                return ResourceManager.GetString("Accept", resourceCulture);
             }
         }
         
@@ -84,51 +75,6 @@ namespace DailyToDo.Assets.Texts {
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to New item.
-        /// </summary>
-        public static string NewItem {
-            get {
-                return ResourceManager.GetString("NewItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There are no notes.
-        /// </summary>
-        public static string NoItems {
-            get {
-                return ResourceManager.GetString("NoItems", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ok.
-        /// </summary>
-        public static string Ok {
-            get {
-                return ResourceManager.GetString("Ok", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save.
-        /// </summary>
-        public static string Save {
-            get {
-                return ResourceManager.GetString("Save", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Can&apos;t save empty item.
-        /// </summary>
-        public static string SaveError {
-            get {
-                return ResourceManager.GetString("SaveError", resourceCulture);
             }
         }
     }

@@ -1,10 +1,10 @@
 ﻿using Xamarin.Forms;
 
-namespace DailyToDo
+namespace DailyToDo.Views
 {
-    public partial class MainPage
+    public partial class AddNewItemPage
     {
-        public MainPage()
+        public AddNewItemPage()
         {
             InitializeComponent();
 

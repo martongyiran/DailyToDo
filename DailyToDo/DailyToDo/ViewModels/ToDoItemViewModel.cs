@@ -1,15 +1,14 @@
 ﻿using Newtonsoft.Json;
 using Prism.Commands;
-using Prism.Mvvm;
 using System;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace DailyToDo
 {
-    public class ToDoItemViewModel : BindableBase
+    public class ToDoItemViewModel : ObservableObject
     {
         private string _title;
         private DateTime _checkedAt;
-        private bool _isEditMode;
 
         public string Title
         {
@@ -22,9 +21,11 @@ namespace DailyToDo
             get => _checkedAt;
             set
             {
-                SetProperty(ref _checkedAt, value);
-                RaisePropertyChanged(nameof(IsChecked));
-            } 
+                if (SetProperty(ref _checkedAt, value))
+                {
+                    OnPropertyChanged(nameof(IsChecked));
+                }
+            }
         }
 
         [JsonIgnore]
@@ -37,10 +38,9 @@ namespace DailyToDo
         public DelegateCommand<object> CheckCommand { get; set; }
 
         [JsonIgnore]
-        public bool IsEditMode
-        {
-            get => _isEditMode;
-            set => SetProperty(ref _isEditMode, value);
-        }
+        public DelegateCommand<object> DeleteCommand { get; set; }
+
+        [JsonIgnore]
+        public AsyncCommand<object> EditCommand { get; set; }
     }
 }

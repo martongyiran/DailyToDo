@@ -33,7 +33,7 @@
                 <Setter Property="TextColor" Value="{StaticResource PrimaryDarkColor}" />
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="FontSize" Value="14" />
-                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="CornerRadius" Value="12" />
                 <Setter Property="FontFamily" Value="MediumFont" />
             </Style>
 

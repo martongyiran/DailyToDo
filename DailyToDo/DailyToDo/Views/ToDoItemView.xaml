@@ -9,27 +9,19 @@
    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
    Padding="10,0,10,10"
    x:DataType="viewModels:ToDoItemViewModel">
-    <Frame HeightRequest="40">
-        <Frame.Triggers>
-            <DataTrigger
-               Binding="{Binding IsEditMode}"
-               TargetType="Frame"
-               Value="True">
-                <Setter Property="BorderColor" Value="#000000" />
-            </DataTrigger>
-            <DataTrigger
-               Binding="{Binding IsEditMode}"
-               TargetType="Frame"
-               Value="False">
-                <Setter Property="BorderColor" Value="#ffffff" />
-            </DataTrigger>
-        </Frame.Triggers>
+    <Frame
+       Padding="0"
+       BackgroundColor="{StaticResource WhiteColor}"
+       BorderColor="{StaticResource BackgroundColor}"
+       CornerRadius="12"
+       HasShadow="True">
         <StackLayout
            HorizontalOptions="FillAndExpand"
            Orientation="Horizontal"
+           Spacing="0"
            VerticalOptions="FillAndExpand">
             <controls:SvgImage
-               Margin="0"
+               Margin="16,0,0,0"
                xct:TouchEffect.Command="{Binding CheckCommand}"
                xct:TouchEffect.CommandParameter="{Binding}"
                xct:TouchEffect.NormalScale="1.0"
@@ -43,7 +35,7 @@
                WidthRequest="25" />
 
             <controls:SvgImage
-               Margin="0"
+               Margin="16,0,0,0"
                xct:TouchEffect.Command="{Binding CheckCommand}"
                xct:TouchEffect.CommandParameter="{Binding}"
                xct:TouchEffect.NormalScale="1.0"
@@ -56,31 +48,52 @@
                VerticalOptions="Center"
                WidthRequest="25" />
 
-            <ContentView
-               xct:TouchEffect.CommandParameter="{Binding}"
-               xct:TouchEffect.LongPressCommand="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=EditCommand}"
-               HorizontalOptions="FillAndExpand"
-               IsVisible="{Binding IsEditMode, Converter={xct:InvertedBoolConverter}}"
-               VerticalOptions="Fill">
-                <Label
-                   HorizontalOptions="FillAndExpand"
-                   Text="{Binding Title}"
-                   VerticalOptions="CenterAndExpand" />
-            </ContentView>
+            <xct:Expander HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <xct:Expander.Header>
+                    <ContentView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Label
+                           Margin="16"
+                           HorizontalOptions="Start"
+                           Text="{Binding Title}"
+                           VerticalOptions="Center" />
+                    </ContentView>
 
-            <Frame
-               Padding="5,0,0,0"
-               BackgroundColor="{StaticResource BackgroundColor}"
-               CornerRadius="4"
-               HasShadow="False"
-               HorizontalOptions="FillAndExpand"
-               IsVisible="{Binding IsEditMode}">
-                <Entry
+                </xct:Expander.Header>
+                <StackLayout
+                   Margin="16"
                    HorizontalOptions="FillAndExpand"
-                   Text="{Binding Title, Mode=TwoWay}"
-                   VerticalOptions="CenterAndExpand"
-                   WidthRequest="280" />
-            </Frame>
+                   Orientation="Horizontal"
+                   VerticalOptions="Fill">
+
+                    <controls:SvgImage
+                       Margin="40,0,0,0"
+                       xct:TouchEffect.Command="{Binding DeleteCommand}"
+                       xct:TouchEffect.CommandParameter="{Binding}"
+                       xct:TouchEffect.NormalScale="1.0"
+                       xct:TouchEffect.PressedScale="0.95"
+                       BackgroundColor="Transparent"
+                       HeightRequest="30"
+                       HorizontalOptions="StartAndExpand"
+                       Source="{markup:Icon delete}"
+                       VerticalOptions="Center"
+                       WidthRequest="30" />
+
+                    <controls:SvgImage
+                       Margin="0,0,97,0"
+                       xct:TouchEffect.Command="{Binding EditCommand}"
+                       xct:TouchEffect.CommandParameter="{Binding}"
+                       xct:TouchEffect.NormalScale="1.0"
+                       xct:TouchEffect.PressedScale="0.95"
+                       BackgroundColor="Transparent"
+                       HeightRequest="30"
+                       HorizontalOptions="End"
+                       Source="{markup:Icon edit}"
+                       VerticalOptions="Center"
+                       WidthRequest="30" />
+                </StackLayout>
+            </xct:Expander>
+
+
 
         </StackLayout>
     </Frame>

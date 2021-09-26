@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-   x:Class="DailyToDo.Views.SettingsPage"
+   x:Class="DailyToDo.Views.AddNewItemPage"
    xmlns="http://xamarin.com/schemas/2014/forms"
    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
    xmlns:controls="clr-namespace:DailyToDo.Views.Controls"
@@ -9,7 +9,13 @@
    xmlns:viewModels="clr-namespace:DailyToDo.ViewModels"
    xmlns:views="clr-namespace:DailyToDo.Views"
    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-   x:DataType="viewModels:SettingsPageViewModel"
+   x:DataType="viewModels:AddNewItemPageViewModel"
    BackgroundColor="{StaticResource BackgroundColor}">
-    <Grid />
+    <StackLayout>
+        <Entry Text="{Binding Item}" />
+        <Button
+           Command="{Binding SaveCommand}"
+           Text="save"
+           Visual="Material" />
+    </StackLayout>
 </ContentPage>

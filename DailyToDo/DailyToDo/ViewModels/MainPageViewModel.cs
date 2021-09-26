@@ -1,12 +1,12 @@
-﻿using DailyToDo.Assets.Texts;
+﻿using DailyToDo.Extensions;
+using DailyToDo.Services.Interfaces;
 using DailyToDo.Views;
-using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
@@ -16,11 +16,8 @@ namespace DailyToDo
     public class MainPageViewModel : ViewModelBase
     {
         private ObservableCollection<ToDoItemViewModel> _items;
-        private string _newTitle;
-        private ToDoItemViewModel _selectedItem;
-
-        public EventHandler<bool> EditModeOpened;
-        public EventHandler<bool> AddNewItemVisibility;
+        private AsyncCommand _navigateToSettingsCommand;
+        private AsyncCommand _addNewItemCommand;
 
         public ObservableCollection<ToDoItemViewModel> Items
         {
@@ -28,55 +25,21 @@ namespace DailyToDo
             set => SetProperty(ref _items, value);
         }
 
-        public string NewTitle
-        {
-            get => _newTitle;
-            set => SetProperty(ref _newTitle, value);
-        }
+#if DEBUG
+        public string Version => string.Format("{0} ({1})", VersionTracking.CurrentVersion, VersionTracking.CurrentBuild) + " DEV";
+#else
+        public string Version => string.Format("{0} ({1})", VersionTracking.CurrentVersion, VersionTracking.CurrentBuild);
+#endif
 
-        public ToDoItemViewModel SelectedItem
-        {
-            get => _selectedItem;
-            set => SetProperty(ref _selectedItem, value);
-        }
+        public AsyncCommand NavigateToSettingsCommand => _navigateToSettingsCommand ??= new AsyncCommand(this.WrapWithIsBusy(NavigateToSettingsAsync), allowsMultipleExecutions: false);
 
-        public string ApplicationData
-        {
-            get => Preferences.Get(nameof(ApplicationData), null);
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value) == false)
-                {
-                    Preferences.Set(nameof(ApplicationData), value);
-                }
-                else if (Preferences.ContainsKey(nameof(ApplicationData)))
-                {
-                    Preferences.Remove(nameof(ApplicationData));
-                }
-            }
-        }
-
-        public bool CenterAddIsVisible => Items == null || Items.Count == 0;
-
-        public AsyncCommand DeleteItemCommand
-            => new AsyncCommand(DeleteItemAsync, allowsMultipleExecutions: false);
-
-        public DelegateCommand<object> EditCommand
-            => new DelegateCommand<object>((item) => Edit(item));
-
-        public DelegateCommand CloseEditCommand
-            => new DelegateCommand(CloseEditModeAsync);
-
-        public AsyncCommand SaveNewItemCommand
-            => new AsyncCommand(SaveNewItem, allowsMultipleExecutions: false);
-
-        public AsyncCommand NavigateToSettingsCommand
-            => new AsyncCommand(NavigateToSettingsAsync, allowsMultipleExecutions: false);
+        public AsyncCommand AddNewItemCommand => _addNewItemCommand ??= new AsyncCommand(this.WrapWithIsBusy(AddNewItemAsync), allowsMultipleExecutions: false);
 
         public MainPageViewModel(
             INavigationService navigationService,
-            IPageDialogService dialogService)
-            : base(navigationService, dialogService)
+            IPageDialogService dialogService,
+            ICommonConfigService commonConfigService)
+            : base(navigationService, dialogService, commonConfigService)
         {
         }
 
@@ -84,140 +47,61 @@ namespace DailyToDo
         {
             base.OnNavigatedTo(parameters);
 
-            Task.Run(() => Initialize());
+            this.InvokeWithIsBusy(Initialize);
         }
 
         private void Initialize()
         {
-            if (ApplicationData != null)
-            {
-                Items = JsonConvert.DeserializeObject<ObservableCollection<ToDoItemViewModel>>(ApplicationData);
-            }
-            else
-            {
-                Items = new ObservableCollection<ToDoItemViewModel>();
-            }
+            Items = CommonConfigService.ToDoList != null
+                ? new ObservableCollection<ToDoItemViewModel>(CommonConfigService.ToDoList)
+                : new ObservableCollection<ToDoItemViewModel>();
 
             foreach (var item in Items)
             {
                 item.CheckCommand = new DelegateCommand<object>((item) => CheckItem(item));
-            }
-
-            RaisePropertyChanged(nameof(CenterAddIsVisible));
-        }
-
-        private async Task SaveNewItem()
-        {
-            if (string.IsNullOrEmpty(NewTitle))
-            {
-                await DialogService.DisplayAlertAsync(null, Texts.SaveError, Texts.Ok);
-                return;
-            }
-
-            Items.Add(new ToDoItemViewModel
-            {
-                Title = NewTitle,
-                CheckCommand = new DelegateCommand<object>((item) => CheckItem(item))
-            });
-
-            PersistDatabase();
-
-            NewTitle = string.Empty;
-
-            RaisePropertyChanged(nameof(CenterAddIsVisible));
-
-            AddNewItemVisibility?.Invoke(null, true);
-        }
-
-        private void CheckItem(object item)
-        {
-            if (item == null && !(item is ToDoItemViewModel))
-            {
-                return;
-            }
-
-            (item as ToDoItemViewModel).CheckedAt = (item as ToDoItemViewModel).IsEditMode
-                ? new DateTime()
-                : DateTime.Now;
-
-            PersistDatabase();
-        }
-
-        private async Task DeleteItemAsync()
-        {
-            var result = await DialogService.DisplayAlertAsync(null, "Do you want to delete this item?", "yes", "no");
-
-            if (!result)
-            {
-                return;
-            }
-
-            if (SelectedItem is ToDoItemViewModel)
-            {
-                Items.Remove(SelectedItem);
-                SelectedItem = null;
-                PersistDatabase();
-
-                RaisePropertyChanged(nameof(CenterAddIsVisible));
-
-                EditModeOpened?.Invoke(null, false);
+                item.DeleteCommand = new DelegateCommand<object>((item) => DeleteItem(item));
+                item.EditCommand = new AsyncCommand<object>(this.WrapWithIsBusy<object>(EditItemAsync), allowsMultipleExecutions: false);
             }
         }
 
-        private void Edit(object item)
+        private void CheckItem(object selected)
         {
-            if(SelectedItem != null)
+            if (selected != null && (selected is ToDoItemViewModel item))
             {
-                return;
-            }
+                item.CheckedAt = item.IsChecked
+                    ? DateTime.Now.AddDays(-1)
+                    : DateTime.Now;
 
-
-            if (item is ToDoItemViewModel)
-            {
-                SelectedItem = item as ToDoItemViewModel;
-                SelectedItem.IsEditMode = true;
-            }
-
-            if (Items == null || Items.Count == 0)
-            {
-                return;
-            }
-            else
-            {
-                EditModeOpened?.Invoke(null, true);
+                CommonConfigService.ToDoList = new List<ToDoItemViewModel>(Items);
             }
         }
 
-        private async void CloseEditModeAsync()
+        private void DeleteItem(object selected)
         {
-            if (SelectedItem != null)
+            if (selected != null && (selected is ToDoItemViewModel item))
             {
-                if (string.IsNullOrEmpty(SelectedItem.Title))
-                {
-                    await DeleteItemAsync();
-                    return;
-                }
+                Items.Remove(item);
 
-                foreach (var item in Items)
-                {
-                    item.IsEditMode = false;
-                }
-                SelectedItem = null;
+                CommonConfigService.ToDoList = new List<ToDoItemViewModel>(Items);
+
+                OnPropertyChanged(nameof(Items));
             }
+        }
 
-            PersistDatabase();
+        private async Task EditItemAsync(object selected)
+        {
+            await NavigationService.NavigateAsync(nameof(AddNewItemPage));
+        }
+             
 
-            EditModeOpened?.Invoke(null, false);
+        private async Task AddNewItemAsync()
+        {
+            await NavigationService.NavigateAsync(nameof(AddNewItemPage));
         }
 
         private async Task NavigateToSettingsAsync()
         {
             await NavigationService.NavigateAsync(nameof(SettingsPage));
-        }
-
-        private void PersistDatabase()
-        {
-            ApplicationData = JsonConvert.SerializeObject(Items);
         }
     }
 }
