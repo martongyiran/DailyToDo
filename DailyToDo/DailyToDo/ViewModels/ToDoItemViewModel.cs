@@ -3,12 +3,19 @@ using Prism.Commands;
 using System;
 using Xamarin.CommunityToolkit.ObjectModel;
 
-namespace DailyToDo
+namespace DailyToDo.ViewModels
 {
     public class ToDoItemViewModel : ObservableObject
     {
+        private Guid? _id;
         private string _title;
         private DateTime _checkedAt;
+
+        public Guid? Id
+        {
+            get => _id;
+            set => SetProperty(ref _id, value);
+        }
 
         public string Title
         {
@@ -42,5 +49,12 @@ namespace DailyToDo
 
         [JsonIgnore]
         public AsyncCommand<object> EditCommand { get; set; }
+
+        public ToDoItemViewModel()
+        {
+            Id = Id == null
+                ? Guid.NewGuid()
+                : Id;
+        }
     }
 }

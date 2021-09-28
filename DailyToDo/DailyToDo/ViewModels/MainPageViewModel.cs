@@ -1,4 +1,5 @@
-﻿using DailyToDo.Extensions;
+﻿using DailyToDo.Assets.Texts;
+using DailyToDo.Extensions;
 using DailyToDo.Services.Interfaces;
 using DailyToDo.Views;
 using Prism.Commands;
@@ -7,11 +8,11 @@ using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Essentials;
 
-namespace DailyToDo
+namespace DailyToDo.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
@@ -24,12 +25,6 @@ namespace DailyToDo
             get => _items;
             set => SetProperty(ref _items, value);
         }
-
-#if DEBUG
-        public string Version => string.Format("{0} ({1})", VersionTracking.CurrentVersion, VersionTracking.CurrentBuild) + " DEV";
-#else
-        public string Version => string.Format("{0} ({1})", VersionTracking.CurrentVersion, VersionTracking.CurrentBuild);
-#endif
 
         public AsyncCommand NavigateToSettingsCommand => _navigateToSettingsCommand ??= new AsyncCommand(this.WrapWithIsBusy(NavigateToSettingsAsync), allowsMultipleExecutions: false);
 
@@ -47,11 +42,18 @@ namespace DailyToDo
         {
             base.OnNavigatedTo(parameters);
 
-            this.InvokeWithIsBusy(Initialize);
+            this.InvokeWithIsBusy(Initialize).ConfigureAwait(false);
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
+            if (CommonConfigService.FirstStart)
+            {
+                await DialogService.DisplayAlertAsync(Texts.Start_Title, Texts.Start_Info, Texts.Accept);
+
+                CommonConfigService.FirstStart = false;
+            }
+
             Items = CommonConfigService.ToDoList != null
                 ? new ObservableCollection<ToDoItemViewModel>(CommonConfigService.ToDoList)
                 : new ObservableCollection<ToDoItemViewModel>();
@@ -90,7 +92,10 @@ namespace DailyToDo
 
         private async Task EditItemAsync(object selected)
         {
-            await NavigationService.NavigateAsync(nameof(AddNewItemPage));
+            await NavigationService.NavigateAsync(nameof(AddNewItemPage), new NavigationParameters
+            {
+                { nameof(AddNewItemPageViewModel.ItemId), (selected as ToDoItemViewModel).Id }
+            });
         }
              
 

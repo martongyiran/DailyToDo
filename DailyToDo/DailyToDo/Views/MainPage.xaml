@@ -5,8 +5,7 @@
    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
    xmlns:controls="clr-namespace:DailyToDo.Views.Controls"
    xmlns:markup="clr-namespace:DailyToDo.Views.MarkupExtensions"
-   xmlns:values="clr-namespace:DailyToDo.Assets.Texts"
-   xmlns:viewModels="clr-namespace:DailyToDo"
+   xmlns:viewModels="clr-namespace:DailyToDo.ViewModels"
    xmlns:views="clr-namespace:DailyToDo.Views"
    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
    x:DataType="viewModels:MainPageViewModel"
@@ -18,7 +17,7 @@
            FontFamily="LightFont"
            FontSize="18"
            HorizontalOptions="Start"
-           Text="Daily ToDo"
+           Text="{xct:Translate AppTitle}"
            VerticalOptions="Center" />
 
         <controls:SvgImage
@@ -44,16 +43,25 @@
             </CollectionView.ItemTemplate>
             <CollectionView.EmptyView>
                 <ContentView HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                    <controls:SvgImage
-                       xct:TouchEffect.Command="{Binding AddNewItemCommand}"
-                       xct:TouchEffect.NormalScale="1.0"
-                       xct:TouchEffect.PressedScale="0.97"
-                       HeightRequest="200"
-                       HorizontalOptions="Center"
-                       Source="{markup:Icon add_outline}"
-                       TintColor="{StaticResource BackgroundColor}"
-                       VerticalOptions="Center"
-                       WidthRequest="200" />
+                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <controls:SvgImage
+                           xct:TouchEffect.Command="{Binding AddNewItemCommand}"
+                           xct:TouchEffect.NormalScale="1.0"
+                           xct:TouchEffect.PressedScale="0.97"
+                           HeightRequest="200"
+                           HorizontalOptions="Center"
+                           Source="{markup:Icon add_outline}"
+                           TintColor="{StaticResource BackgroundColor}"
+                           VerticalOptions="Center"
+                           WidthRequest="200" />
+
+                        <Label
+                           HorizontalOptions="Center"
+                           Opacity="0.4"
+                           Text="{xct:Translate MainPage_AddItem}"
+                           TextColor="{StaticResource AccentColor}"
+                           VerticalOptions="Start" />
+                    </StackLayout>
                 </ContentView>
             </CollectionView.EmptyView>
             <CollectionView.Footer>

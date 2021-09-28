@@ -120,7 +120,43 @@
   <data name="Accept" xml:space="preserve">
     <value>Rendben</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Mégse</value>
+  <data name="AddNewItem_Title" xml:space="preserve">
+    <value>Jegyzet</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Daily ToDo</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Hungarian" xml:space="preserve">
+    <value>Magyar</value>
+  </data>
+  <data name="LanguageSelectorPage_Title" xml:space="preserve">
+    <value>Alkalmazás nyelve</value>
+  </data>
+  <data name="MainPage_AddItem" xml:space="preserve">
+    <value>Adj egy új jegyzetet a listádhoz!</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Mentés</value>
+  </data>
+  <data name="SettingsPage_DarkTheme" xml:space="preserve">
+    <value>Sötét téma</value>
+  </data>
+  <data name="SettingsPage_Language" xml:space="preserve">
+    <value>Nyelv</value>
+  </data>
+  <data name="SettingsPage_Title" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="SettingsPage_Version" xml:space="preserve">
+    <value>Verzió</value>
+  </data>
+  <data name="Start_Info" xml:space="preserve">
+    <value>A Daily ToDo egy olyan alkalmazás, ahol minden nap újra ki kell pipálnod a jegyzeteidet, így segítve a rendszerességet az életedben.</value>
+  </data>
+  <data name="Start_Title" xml:space="preserve">
+    <value>Információ</value>
   </data>
 </root>

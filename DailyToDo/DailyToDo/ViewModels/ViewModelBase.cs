@@ -1,7 +1,9 @@
-﻿using DailyToDo.Services.Interfaces;
+﻿using DailyToDo.Extensions;
+using DailyToDo.Services.Interfaces;
 using DailyToDo.ViewModels.Interfaces;
 using Prism.Navigation;
 using Prism.Services;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace DailyToDo
@@ -9,6 +11,7 @@ namespace DailyToDo
     public class ViewModelBase : ObservableObject, IViewModel, IDestructible
     {
         private bool _isBusy = false;
+        private AsyncCommand _goBackCommand;
 
         public bool IsBusy
         {
@@ -21,6 +24,9 @@ namespace DailyToDo
         public IPageDialogService DialogService { get; }
 
         public ICommonConfigService CommonConfigService { get; }
+
+        public AsyncCommand GoBackCommand
+            => _goBackCommand ??= new AsyncCommand(this.WrapWithIsBusy(BackAsync), allowsMultipleExecutions: false);
 
         public ViewModelBase(
             INavigationService navigationService,
@@ -42,6 +48,11 @@ namespace DailyToDo
 
         public virtual void OnNavigatedTo(INavigationParameters parameters)
         {
+        }
+
+        private async Task BackAsync()
+        {
+            await NavigationService.GoBackAsync();
         }
     }
 }

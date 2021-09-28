@@ -1,4 +1,5 @@
 ﻿using DailyToDo.Services.Interfaces;
+using DailyToDo.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,12 @@ namespace DailyToDo.Services
         {
             get => GetSecuredValue<List<ToDoItemViewModel>>(nameof(ToDoList), null);
             set => SetSecuredValue(nameof(ToDoList), value);
+        }
+
+        public bool FirstStart
+        {
+            get => GetBoolValue(nameof(FirstStart), true);
+            set => SetBoolValue(nameof(FirstStart), value);
         }
 
         #region Getters, setters

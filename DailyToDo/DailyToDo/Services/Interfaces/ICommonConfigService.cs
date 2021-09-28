@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DailyToDo.ViewModels;
+using System.Collections.Generic;
 using System.Globalization;
 using Xamarin.Forms;
 
@@ -11,5 +12,7 @@ namespace DailyToDo.Services.Interfaces
         CultureInfo Culture { get; set; }
 
         List<ToDoItemViewModel> ToDoList { get; set; }
+
+        bool FirstStart { get; set; }
     }
 }

@@ -70,11 +70,119 @@ namespace DailyToDo.Assets.Texts {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
+        ///   Looks up a localized string similar to Note.
         /// </summary>
-        public static string Cancel {
+        public static string AddNewItem_Title {
             get {
-                return ResourceManager.GetString("Cancel", resourceCulture);
+                return ResourceManager.GetString("AddNewItem_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daily ToDo.
+        /// </summary>
+        public static string AppTitle {
+            get {
+                return ResourceManager.GetString("AppTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Magyar.
+        /// </summary>
+        public static string Hungarian {
+            get {
+                return ResourceManager.GetString("Hungarian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application language.
+        /// </summary>
+        public static string LanguageSelectorPage_Title {
+            get {
+                return ResourceManager.GetString("LanguageSelectorPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add a new item to your ToDo list!.
+        /// </summary>
+        public static string MainPage_AddItem {
+            get {
+                return ResourceManager.GetString("MainPage_AddItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark theme.
+        /// </summary>
+        public static string SettingsPage_DarkTheme {
+            get {
+                return ResourceManager.GetString("SettingsPage_DarkTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string SettingsPage_Language {
+            get {
+                return ResourceManager.GetString("SettingsPage_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string SettingsPage_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string SettingsPage_Version {
+            get {
+                return ResourceManager.GetString("SettingsPage_Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daily ToDo is an app where you have to re-check your notes every day, helping to keep your life regular..
+        /// </summary>
+        public static string Start_Info {
+            get {
+                return ResourceManager.GetString("Start_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        public static string Start_Title {
+            get {
+                return ResourceManager.GetString("Start_Title", resourceCulture);
             }
         }
     }

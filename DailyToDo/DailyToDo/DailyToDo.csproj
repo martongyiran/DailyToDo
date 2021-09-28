@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +25,7 @@
     <EmbeddedResource Include="Assets\Icons\back.svg" />
     <EmbeddedResource Include="Assets\Icons\check.svg" />
     <EmbeddedResource Include="Assets\Icons\checked.svg" />
+    <EmbeddedResource Include="Assets\Icons\check_mark.svg" />
     <EmbeddedResource Include="Assets\Icons\delete.svg" />
     <EmbeddedResource Include="Assets\Icons\edit.svg" />
     <EmbeddedResource Include="Assets\Icons\settings.svg" />
@@ -62,6 +63,9 @@
       <LastGenOutput>Texts.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\AddNewItemPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\LanguageSelectorPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SettingsPage.xaml">

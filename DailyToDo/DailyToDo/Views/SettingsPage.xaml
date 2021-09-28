@@ -4,12 +4,125 @@
    xmlns="http://xamarin.com/schemas/2014/forms"
    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
    xmlns:controls="clr-namespace:DailyToDo.Views.Controls"
+   xmlns:converters="clr-namespace:DailyToDo.Views.Converters"
    xmlns:markup="clr-namespace:DailyToDo.Views.MarkupExtensions"
-   xmlns:values="clr-namespace:DailyToDo.Assets.Texts"
    xmlns:viewModels="clr-namespace:DailyToDo.ViewModels"
-   xmlns:views="clr-namespace:DailyToDo.Views"
    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
    x:DataType="viewModels:SettingsPageViewModel"
-   BackgroundColor="{StaticResource BackgroundColor}">
-    <Grid />
+   BackgroundColor="{StaticResource WhiteColor}">
+    <Grid ColumnDefinitions="auto,*" RowDefinitions="72,72,72,72">
+        <Label
+           Grid.Row="0"
+           Grid.Column="0"
+           Grid.ColumnSpan="2"
+           FontFamily="LightFont"
+           FontSize="18"
+           HorizontalOptions="Center"
+           Text="{xct:Translate SettingsPage_Title}"
+           VerticalOptions="Center" />
+
+        <controls:SvgImage
+           Grid.Row="0"
+           Grid.Column="0"
+           Grid.ColumnSpan="2"
+           Margin="16,0,0,0"
+           xct:TouchEffect.Command="{Binding GoBackCommand}"
+           xct:TouchEffect.NormalScale="1.0"
+           xct:TouchEffect.PressedScale="0.97"
+           HeightRequest="40"
+           HorizontalOptions="Start"
+           Source="{markup:Icon back}"
+           VerticalOptions="Center"
+           WidthRequest="40" />
+
+        <Label
+           Grid.Row="1"
+           Grid.Column="0"
+           Margin="24,0,0,0"
+           FontFamily="LightFont"
+           FontSize="18"
+           Text="{xct:Translate SettingsPage_Language}"
+           VerticalOptions="Center" />
+
+        <Label
+           Grid.Row="1"
+           Grid.Column="1"
+           Margin="24,0"
+           FontSize="18"
+           HorizontalOptions="End"
+           Text="{Binding Language, Converter={converters:CultureInfoToNativeNameConverter}}"
+           VerticalOptions="Center" />
+
+        <BoxView
+           Grid.Row="1"
+           Grid.Column="1"
+           xct:TouchEffect.Command="{Binding SelectLanguageCommand}"
+           BackgroundColor="Transparent"
+           HorizontalOptions="FillAndExpand"
+           VerticalOptions="FillAndExpand" />
+
+        <Label
+           Grid.Row="2"
+           Grid.Column="0"
+           Margin="24,0,0,0"
+           FontFamily="LightFont"
+           FontSize="18"
+           Text="{xct:Translate SettingsPage_DarkTheme}"
+           VerticalOptions="Center" />
+
+        <Switch
+           Grid.Row="2"
+           Grid.Column="1"
+           Margin="24,0"
+           HorizontalOptions="End"
+           VerticalOptions="Center" />
+
+        <Label
+           Grid.Row="3"
+           Grid.Column="0"
+           Margin="24,0,0,0"
+           FontFamily="LightFont"
+           FontSize="18"
+           Text="{xct:Translate SettingsPage_Version}"
+           VerticalOptions="Center" />
+
+        <Label
+           Grid.Row="3"
+           Grid.Column="1"
+           Margin="24,0"
+           FontSize="18"
+           HorizontalOptions="End"
+           Text="{Binding Version}"
+           VerticalOptions="Center" />
+
+        <BoxView
+           Grid.Row="1"
+           Grid.Column="0"
+           Grid.ColumnSpan="2"
+           Margin="24,0"
+           BackgroundColor="{StaticResource BackgroundColor}"
+           HeightRequest="1"
+           HorizontalOptions="Fill"
+           VerticalOptions="End" />
+
+        <BoxView
+           Grid.Row="2"
+           Grid.Column="0"
+           Grid.ColumnSpan="2"
+           Margin="24,0"
+           BackgroundColor="{StaticResource BackgroundColor}"
+           HeightRequest="1"
+           HorizontalOptions="Fill"
+           VerticalOptions="End" />
+
+        <BoxView
+           Grid.Row="3"
+           Grid.Column="0"
+           Grid.ColumnSpan="2"
+           Margin="24,0"
+           BackgroundColor="{StaticResource BackgroundColor}"
+           HeightRequest="1"
+           HorizontalOptions="Fill"
+           VerticalOptions="End" />
+    </Grid>
 </ContentPage>

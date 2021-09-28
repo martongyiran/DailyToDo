@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+   x:Class="DailyToDo.Views.LanguageSelectorPage"
+   xmlns="http://xamarin.com/schemas/2014/forms"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:controls="clr-namespace:DailyToDo.Views.Controls"
+   xmlns:markup="clr-namespace:DailyToDo.Views.MarkupExtensions"
+   xmlns:viewModels="clr-namespace:DailyToDo.ViewModels"
+   xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+   x:DataType="viewModels:LanguageSelectorViewModel"
+   BackgroundColor="{StaticResource WhiteColor}">
+    <Grid RowDefinitions="72,*">
+        <Label
+           Grid.Row="0"
+           FontFamily="LightFont"
+           FontSize="18"
+           HorizontalOptions="Center"
+           Text="{xct:Translate LanguageSelectorPage_Title}"
+           VerticalOptions="Center" />
+
+        <controls:SvgImage
+           Grid.Row="0"
+           Margin="16,0,0,0"
+           xct:TouchEffect.Command="{Binding GoBackCommand}"
+           xct:TouchEffect.NormalScale="1.0"
+           xct:TouchEffect.PressedScale="0.97"
+           HeightRequest="40"
+           HorizontalOptions="Start"
+           Source="{markup:Icon back}"
+           VerticalOptions="Center"
+           WidthRequest="40" />
+
+        <StackLayout Grid.Row="1" Margin="24,0">
+            <Frame
+               Padding="0,24"
+               xct:TouchEffect.Command="{Binding SelectLanguageCommand}"
+               xct:TouchEffect.CommandParameter="en-US"
+               xct:TouchEffect.NormalScale="1.0"
+               xct:TouchEffect.PressedScale="0.97"
+               BackgroundColor="Transparent"
+               BorderColor="Transparent"
+               HasShadow="False"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="Center">
+                <StackLayout
+                   HorizontalOptions="FillAndExpand"
+                   Orientation="Horizontal"
+                   VerticalOptions="Center">
+                    <Label
+                       FontSize="18"
+                       HorizontalOptions="StartAndExpand"
+                       Text="{xct:Translate English}"
+                       VerticalOptions="Center" />
+
+                    <controls:SvgImage
+                       HeightRequest="24"
+                       HorizontalOptions="End"
+                       IsVisible="{Binding IsHungarianSelected, Converter={xct:InvertedBoolConverter}}"
+                       Source="{markup:Icon check_mark}"
+                       VerticalOptions="Center"
+                       WidthRequest="24" />
+                </StackLayout>
+            </Frame>
+
+            <BoxView
+               BackgroundColor="{StaticResource BackgroundColor}"
+               HeightRequest="1"
+               HorizontalOptions="Fill"
+               VerticalOptions="Center" />
+
+            <Frame
+               Padding="0,24"
+               xct:TouchEffect.Command="{Binding SelectLanguageCommand}"
+               xct:TouchEffect.CommandParameter="hu-HU"
+               xct:TouchEffect.NormalScale="1.0"
+               xct:TouchEffect.PressedScale="0.97"
+               BackgroundColor="Transparent"
+               BorderColor="Transparent"
+               HasShadow="False"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="Center">
+                <StackLayout
+                   HorizontalOptions="FillAndExpand"
+                   Orientation="Horizontal"
+                   VerticalOptions="Center">
+                    <Label
+                       FontSize="18"
+                       HorizontalOptions="StartAndExpand"
+                       Text="{xct:Translate Hungarian}"
+                       VerticalOptions="Center" />
+
+                    <controls:SvgImage
+                       HeightRequest="24"
+                       HorizontalOptions="End"
+                       IsVisible="{Binding IsHungarianSelected}"
+                       Source="{markup:Icon check_mark}"
+                       VerticalOptions="Center"
+                       WidthRequest="24" />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+
+    </Grid>
+</ContentPage>

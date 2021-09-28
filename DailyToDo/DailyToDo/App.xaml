@@ -27,14 +27,17 @@
             </Style>
 
             <Style TargetType="Button">
-                <Setter Property="BorderColor" Value="{StaticResource AccentColor}" />
-                <Setter Property="BorderWidth" Value="1" />
                 <Setter Property="HeightRequest" Value="50" />
-                <Setter Property="TextColor" Value="{StaticResource PrimaryDarkColor}" />
-                <Setter Property="BackgroundColor" Value="White" />
-                <Setter Property="FontSize" Value="14" />
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource BlackColor}" />
+                <Setter Property="FontSize" Value="18" />
                 <Setter Property="CornerRadius" Value="12" />
-                <Setter Property="FontFamily" Value="MediumFont" />
+                <Setter Property="FontFamily" Value="LightFont" />
+                <Style.Triggers>
+                    <Trigger TargetType="Button" Property="IsEnabled" Value="False">
+                        <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColor}" />
+                    </Trigger>
+                </Style.Triggers>
             </Style>
 
         </ResourceDictionary>

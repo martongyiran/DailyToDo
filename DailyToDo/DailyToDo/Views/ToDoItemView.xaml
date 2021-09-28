@@ -5,7 +5,7 @@
    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
    xmlns:controls="clr-namespace:DailyToDo.Views.Controls"
    xmlns:markup="clr-namespace:DailyToDo.Views.MarkupExtensions"
-   xmlns:viewModels="clr-namespace:DailyToDo"
+   xmlns:viewModels="clr-namespace:DailyToDo.ViewModels"
    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
    Padding="10,0,10,10"
    x:DataType="viewModels:ToDoItemViewModel">

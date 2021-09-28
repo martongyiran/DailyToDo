@@ -5,17 +5,57 @@
    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
    xmlns:controls="clr-namespace:DailyToDo.Views.Controls"
    xmlns:markup="clr-namespace:DailyToDo.Views.MarkupExtensions"
-   xmlns:values="clr-namespace:DailyToDo.Assets.Texts"
    xmlns:viewModels="clr-namespace:DailyToDo.ViewModels"
-   xmlns:views="clr-namespace:DailyToDo.Views"
    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
    x:DataType="viewModels:AddNewItemPageViewModel"
-   BackgroundColor="{StaticResource BackgroundColor}">
-    <StackLayout>
-        <Entry Text="{Binding Item}" />
-        <Button
-           Command="{Binding SaveCommand}"
-           Text="save"
-           Visual="Material" />
-    </StackLayout>
+   BackgroundColor="{StaticResource WhiteColor}">
+    <Grid RowDefinitions="72,*">
+        <Label
+           Grid.Row="0"
+           FontFamily="LightFont"
+           FontSize="18"
+           HorizontalOptions="Center"
+           Text="{xct:Translate AddNewItem_Title}"
+           VerticalOptions="Center" />
+
+        <controls:SvgImage
+           Grid.Row="0"
+           Margin="16,0,0,0"
+           xct:TouchEffect.Command="{Binding GoBackCommand}"
+           xct:TouchEffect.NormalScale="1.0"
+           xct:TouchEffect.PressedScale="0.97"
+           HeightRequest="40"
+           HorizontalOptions="Start"
+           Source="{markup:Icon back}"
+           VerticalOptions="Center"
+           WidthRequest="40" />
+
+        <StackLayout Grid.Row="1" VerticalOptions="Center">
+            <Frame
+               Margin="16,0"
+               Padding="16"
+               BackgroundColor="{StaticResource WhiteColor}"
+               BorderColor="{StaticResource BackgroundColor}"
+               CornerRadius="12"
+               HasShadow="True"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="CenterAndExpand">
+                <Entry
+                   x:Name="ItemEntry"
+                   HorizontalOptions="FillAndExpand"
+                   Placeholder="{xct:Translate AddNewItem_Title}"
+                   Text="{Binding Item}"
+                   VerticalOptions="Center" />
+            </Frame>
+
+            <Button
+               Margin="16,48,16,0"
+               Command="{Binding SaveCommand}"
+               HorizontalOptions="FillAndExpand"
+               IsEnabled="{Binding Changed}"
+               Text="{xct:Translate Save}"
+               VerticalOptions="Center"
+               Visual="Material" />
+        </StackLayout>
+    </Grid>
 </ContentPage>

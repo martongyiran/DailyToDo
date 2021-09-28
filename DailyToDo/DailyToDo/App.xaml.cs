@@ -52,6 +52,7 @@ namespace DailyToDo
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<AddNewItemPage, AddNewItemPageViewModel>();
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
+            containerRegistry.RegisterForNavigation<LanguageSelectorPage, LanguageSelectorViewModel>();
             containerRegistry.RegisterSingleton<ICommonConfigService, CommonConfigService>();
         }
 
