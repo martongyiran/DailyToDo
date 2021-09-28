@@ -8,13 +8,13 @@
    xmlns:viewModels="clr-namespace:DailyToDo.ViewModels"
    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
    x:DataType="viewModels:AddNewItemPageViewModel"
-   BackgroundColor="{StaticResource WhiteColor}">
+   BackgroundColor="{AppThemeBinding Light={StaticResource WhiteColor},
+                                     Dark={StaticResource BlackColor}}">
     <Grid RowDefinitions="72,*">
         <Label
            Grid.Row="0"
-           FontFamily="LightFont"
-           FontSize="18"
            HorizontalOptions="Center"
+           Style="{StaticResource TitleLabelStyle}"
            Text="{xct:Translate AddNewItem_Title}"
            VerticalOptions="Center" />
 
@@ -27,6 +27,8 @@
            HeightRequest="40"
            HorizontalOptions="Start"
            Source="{markup:Icon back}"
+           TintColor="{AppThemeBinding Light={StaticResource BlackColor},
+                                       Dark={StaticResource WhiteColor}}"
            VerticalOptions="Center"
            WidthRequest="40" />
 
@@ -34,7 +36,8 @@
             <Frame
                Margin="16,0"
                Padding="16"
-               BackgroundColor="{StaticResource WhiteColor}"
+               BackgroundColor="{AppThemeBinding Light={StaticResource WhiteColor},
+                                                 Dark={StaticResource BlackColor}}"
                BorderColor="{StaticResource BackgroundColor}"
                CornerRadius="12"
                HasShadow="True"

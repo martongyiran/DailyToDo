@@ -9,14 +9,14 @@
    xmlns:views="clr-namespace:DailyToDo.Views"
    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
    x:DataType="viewModels:MainPageViewModel"
-   BackgroundColor="{StaticResource WhiteColor}">
+   BackgroundColor="{AppThemeBinding Light={StaticResource WhiteColor},
+                                     Dark={StaticResource BlackColor}}">
     <Grid RowDefinitions="72,*" RowSpacing="0">
         <Label
            Grid.Row="0"
            Margin="16"
-           FontFamily="LightFont"
-           FontSize="18"
            HorizontalOptions="Start"
+           Style="{StaticResource TitleLabelStyle}"
            Text="{xct:Translate AppTitle}"
            VerticalOptions="Center" />
 
@@ -29,6 +29,8 @@
            HeightRequest="40"
            HorizontalOptions="End"
            Source="{markup:Icon settings}"
+           TintColor="{AppThemeBinding Light={StaticResource BlackColor},
+                                       Dark={StaticResource WhiteColor}}"
            VerticalOptions="Center"
            WidthRequest="40" />
 
@@ -50,8 +52,9 @@
                            xct:TouchEffect.PressedScale="0.97"
                            HeightRequest="200"
                            HorizontalOptions="Center"
+                           Opacity="0.4"
                            Source="{markup:Icon add_outline}"
-                           TintColor="{StaticResource BackgroundColor}"
+                           TintColor="{StaticResource AccentColor}"
                            VerticalOptions="Center"
                            WidthRequest="200" />
 
@@ -79,6 +82,8 @@
            HorizontalOptions="End"
            IsVisible="{Binding Items, Converter={xct:ListIsNotNullOrEmptyConverter}}"
            Source="{markup:Icon add}"
+           TintColor="{AppThemeBinding Light={StaticResource BlackColor},
+                                       Dark={StaticResource WhiteColor}}"
            VerticalOptions="End"
            WidthRequest="80" />
     </Grid>

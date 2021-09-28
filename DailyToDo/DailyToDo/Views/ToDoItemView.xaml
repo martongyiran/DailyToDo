@@ -11,7 +11,8 @@
    x:DataType="viewModels:ToDoItemViewModel">
     <Frame
        Padding="0"
-       BackgroundColor="{StaticResource WhiteColor}"
+       BackgroundColor="{AppThemeBinding Light={StaticResource WhiteColor},
+                                         Dark={StaticResource BlackColor}}"
        BorderColor="{StaticResource BackgroundColor}"
        CornerRadius="12"
        HasShadow="True">
@@ -31,6 +32,8 @@
                HorizontalOptions="Start"
                IsVisible="{Binding IsChecked}"
                Source="{markup:Icon checked}"
+               TintColor="{AppThemeBinding Light={StaticResource BlackColor},
+                                           Dark={StaticResource WhiteColor}}"
                VerticalOptions="Center"
                WidthRequest="25" />
 
@@ -45,6 +48,8 @@
                HorizontalOptions="Start"
                IsVisible="{Binding IsChecked, Converter={xct:InvertedBoolConverter}}"
                Source="{markup:Icon check}"
+               TintColor="{AppThemeBinding Light={StaticResource BlackColor},
+                                           Dark={StaticResource WhiteColor}}"
                VerticalOptions="Center"
                WidthRequest="25" />
 
@@ -75,6 +80,8 @@
                        HeightRequest="30"
                        HorizontalOptions="StartAndExpand"
                        Source="{markup:Icon delete}"
+                       TintColor="{AppThemeBinding Light={StaticResource BlackColor},
+                                                   Dark={StaticResource WhiteColor}}"
                        VerticalOptions="Center"
                        WidthRequest="30" />
 
@@ -88,6 +95,8 @@
                        HeightRequest="30"
                        HorizontalOptions="End"
                        Source="{markup:Icon edit}"
+                       TintColor="{AppThemeBinding Light={StaticResource BlackColor},
+                                                   Dark={StaticResource WhiteColor}}"
                        VerticalOptions="Center"
                        WidthRequest="30" />
                 </StackLayout>

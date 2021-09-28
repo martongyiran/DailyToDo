@@ -26,8 +26,9 @@ namespace DailyToDo.ViewModels
 
         private void SetLanguage(string lang)
         {
-            CommonConfigService.Culture = CultureInfo.GetCultureInfo(lang);
-            LocalizationResourceManager.Current.CurrentCulture = CommonConfigService.Culture;
+            var selected = CultureInfo.GetCultureInfo(lang);
+            CommonConfigService.Culture = selected;
+            LocalizationResourceManager.Current.CurrentCulture = selected;
             OnPropertyChanged(nameof(IsHungarianSelected));
         }
     }

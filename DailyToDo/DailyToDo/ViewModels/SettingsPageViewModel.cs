@@ -7,14 +7,15 @@ using System.Globalization;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace DailyToDo.ViewModels
 {
     public class SettingsPageViewModel : ViewModelBase
     {
         private AsyncCommand _selectLanguageCommand;
-
         private CultureInfo _language;
+        private bool _isDarkMode;
 
 #if DEBUG
         public string Version => string.Format("{0} ({1})", VersionTracking.CurrentVersion, VersionTracking.CurrentBuild) + " DEV";
@@ -28,6 +29,18 @@ namespace DailyToDo.ViewModels
             set => SetProperty(ref _language, value);
         }
 
+        public bool IsDarkMode
+        {
+            get => _isDarkMode;
+            set
+            {
+                if (SetProperty(ref _isDarkMode, value))
+                {
+                    SetTheme();
+                }
+            }
+        }
+
         public AsyncCommand SelectLanguageCommand
             => _selectLanguageCommand ??= new AsyncCommand(this.WrapWithIsBusy(SelectLanguageAsnyc), allowsMultipleExecutions: false);
 
@@ -37,18 +50,21 @@ namespace DailyToDo.ViewModels
             ICommonConfigService commonConfigService)
             : base(navigationService, dialogService, commonConfigService)
         {
-            if (CommonConfigService.Culture.Name != "en-US" || CommonConfigService.Culture.Name != "hu-HU")
-            {
-                var en = CultureInfo.GetCultureInfo("en-US");
-                CommonConfigService.Culture = en;
-            }
-
             Language = CommonConfigService.Culture;
+
+            _isDarkMode = CommonConfigService.AppTheme == OSAppTheme.Dark;
         }
 
         private async Task SelectLanguageAsnyc()
         {
             await NavigationService.NavigateAsync(nameof(LanguageSelectorPage));
+        }
+
+        private void SetTheme()
+        {
+            var theme = _isDarkMode ? OSAppTheme.Dark : OSAppTheme.Light;
+            CommonConfigService.AppTheme = theme;
+            Application.Current.UserAppTheme = theme;
         }
     }
 }

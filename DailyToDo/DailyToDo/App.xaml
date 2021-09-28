@@ -12,16 +12,21 @@
             <Color x:Key="AccentColor">#8e8e8e</Color>
             <Color x:Key="WhiteColor">#ffffff</Color>
             <Color x:Key="BackgroundColor">#efefef</Color>
-            <Color x:Key="BackgroundColorTransparent">#ccefefef</Color>
+            <Color x:Key="BlueColor">#1976d2</Color>
 
             <Style TargetType="Label">
-                <Setter Property="TextColor" Value="{StaticResource PrimaryDarkColor}" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PrimaryDarkColor}, Dark={StaticResource WhiteColor}}" />
                 <Setter Property="FontSize" Value="14" />
                 <Setter Property="FontFamily" Value="RegularFont" />
             </Style>
 
+            <Style x:Key="TitleLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="FontFamily" Value="LightFont" />
+            </Style>
+
             <Style TargetType="Entry">
-                <Setter Property="TextColor" Value="{StaticResource PrimaryDarkColor}" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PrimaryDarkColor}, Dark={StaticResource WhiteColor}}" />
                 <Setter Property="FontSize" Value="14" />
                 <Setter Property="FontFamily" Value="RegularFont" />
             </Style>
@@ -29,13 +34,13 @@
             <Style TargetType="Button">
                 <Setter Property="HeightRequest" Value="50" />
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
-                <Setter Property="BackgroundColor" Value="{StaticResource BlackColor}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource BlueColor}" />
                 <Setter Property="FontSize" Value="18" />
                 <Setter Property="CornerRadius" Value="12" />
                 <Setter Property="FontFamily" Value="LightFont" />
                 <Style.Triggers>
                     <Trigger TargetType="Button" Property="IsEnabled" Value="False">
-                        <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColor}" />
+                        <Setter Property="Opacity" Value="0.4" />
                     </Trigger>
                 </Style.Triggers>
             </Style>

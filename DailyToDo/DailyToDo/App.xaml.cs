@@ -43,6 +43,10 @@ namespace DailyToDo
 
             ImageService.Instance.Initialize();
 
+            var commonConfig = Container.Resolve<ICommonConfigService>();
+
+            Application.Current.UserAppTheme = commonConfig.AppTheme;
+
             await NavigationService.NavigateAsync(nameof(MainPage));
         }
 

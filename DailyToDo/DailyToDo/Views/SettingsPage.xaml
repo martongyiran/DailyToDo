@@ -9,15 +9,15 @@
    xmlns:viewModels="clr-namespace:DailyToDo.ViewModels"
    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
    x:DataType="viewModels:SettingsPageViewModel"
-   BackgroundColor="{StaticResource WhiteColor}">
+   BackgroundColor="{AppThemeBinding Light={StaticResource WhiteColor},
+                                     Dark={StaticResource BlackColor}}">
     <Grid ColumnDefinitions="auto,*" RowDefinitions="72,72,72,72">
         <Label
            Grid.Row="0"
            Grid.Column="0"
            Grid.ColumnSpan="2"
-           FontFamily="LightFont"
-           FontSize="18"
            HorizontalOptions="Center"
+           Style="{StaticResource TitleLabelStyle}"
            Text="{xct:Translate SettingsPage_Title}"
            VerticalOptions="Center" />
 
@@ -32,6 +32,8 @@
            HeightRequest="40"
            HorizontalOptions="Start"
            Source="{markup:Icon back}"
+           TintColor="{AppThemeBinding Light={StaticResource BlackColor},
+                                       Dark={StaticResource WhiteColor}}"
            VerticalOptions="Center"
            WidthRequest="40" />
 
@@ -75,6 +77,8 @@
            Grid.Column="1"
            Margin="24,0"
            HorizontalOptions="End"
+           IsToggled="{Binding IsDarkMode}"
+           OnColor="{StaticResource BlueColor}"
            VerticalOptions="Center" />
 
         <Label

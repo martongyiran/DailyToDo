@@ -8,13 +8,13 @@
    xmlns:viewModels="clr-namespace:DailyToDo.ViewModels"
    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
    x:DataType="viewModels:LanguageSelectorViewModel"
-   BackgroundColor="{StaticResource WhiteColor}">
+   BackgroundColor="{AppThemeBinding Light={StaticResource WhiteColor},
+                                     Dark={StaticResource BlackColor}}">
     <Grid RowDefinitions="72,*">
         <Label
            Grid.Row="0"
-           FontFamily="LightFont"
-           FontSize="18"
            HorizontalOptions="Center"
+           Style="{StaticResource TitleLabelStyle}"
            Text="{xct:Translate LanguageSelectorPage_Title}"
            VerticalOptions="Center" />
 
@@ -27,6 +27,8 @@
            HeightRequest="40"
            HorizontalOptions="Start"
            Source="{markup:Icon back}"
+           TintColor="{AppThemeBinding Light={StaticResource BlackColor},
+                                       Dark={StaticResource WhiteColor}}"
            VerticalOptions="Center"
            WidthRequest="40" />
 
@@ -57,6 +59,8 @@
                        HorizontalOptions="End"
                        IsVisible="{Binding IsHungarianSelected, Converter={xct:InvertedBoolConverter}}"
                        Source="{markup:Icon check_mark}"
+                       TintColor="{AppThemeBinding Light={StaticResource BlackColor},
+                                                   Dark={StaticResource WhiteColor}}"
                        VerticalOptions="Center"
                        WidthRequest="24" />
                 </StackLayout>
@@ -94,6 +98,8 @@
                        HorizontalOptions="End"
                        IsVisible="{Binding IsHungarianSelected}"
                        Source="{markup:Icon check_mark}"
+                       TintColor="{AppThemeBinding Light={StaticResource BlackColor},
+                                                   Dark={StaticResource WhiteColor}}"
                        VerticalOptions="Center"
                        WidthRequest="24" />
                 </StackLayout>
