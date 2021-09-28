@@ -50,6 +50,12 @@ namespace DailyToDo.ViewModels
             ICommonConfigService commonConfigService)
             : base(navigationService, dialogService, commonConfigService)
         {
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+
             Language = CommonConfigService.Culture;
 
             _isDarkMode = CommonConfigService.AppTheme == OSAppTheme.Dark;
