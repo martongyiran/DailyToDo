@@ -62,7 +62,7 @@
     <AndroidSigningKeyAlias>dailytodo</AndroidSigningKeyAlias>
     <AndroidSigningStorePass>Almafa123?</AndroidSigningStorePass>
     <AndroidSigningKeyPass>Almafa123?</AndroidSigningKeyPass>
-    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
